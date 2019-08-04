@@ -57,7 +57,7 @@ export default {
         if (valid) {
           this.$http.post('http://ttapi.research.itcast.cn/mp/v1_0/authorizations', this.formData).then((res) => {
             console.log(res.data)
-            // this.$router.push('/')
+            this.$router.push('/')
           })
             .catch(() => {
               this.$message.error('手机号或验证码错误')
