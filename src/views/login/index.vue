@@ -26,6 +26,7 @@
 </template>
 
 <script>
+import store from '@/store'
 export default {
   data () {
     let checkcode = (rule, value, callback) => {
@@ -55,8 +56,9 @@ export default {
       // validate((valid)
       this.$refs.formData.validate((valid) => {
         if (valid) {
-          this.$http.post('http://ttapi.research.itcast.cn/mp/v1_0/authorizations', this.formData).then((res) => {
-            console.log(res.data)
+          this.$http.post('authorizations', this.formData).then((res) => {
+            // console.log(res.data.data)
+            store.setUser(res.data.data)
             this.$router.push('/')
           })
             .catch(() => {
