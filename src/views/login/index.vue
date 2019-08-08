@@ -54,16 +54,23 @@ export default {
     submitForm () {
       //
       // validate((valid)
-      this.$refs.formData.validate((valid) => {
+      this.$refs.formData.validate(async valid => {
         if (valid) {
-          this.$http.post('authorizations', this.formData).then((res) => {
-            // console.log(res.data.data)
-            store.setUser(res.data.data)
+          // this.$http.post('/authorizations', this.formData).then(res => {
+          //   // console.log(res.data.data)
+          //   store.setUser(res.data.data)
+          //   this.$router.push('/')
+          // })
+          //   .catch(() => {
+          //
+          //   })
+          try {
+            const { data: { data } } = await this.$http.post('/authorizations', this.formData)
+            store.setUser(data)
             this.$router.push('/')
-          })
-            .catch(() => {
-              this.$message.error('手机号或验证码错误')
-            })
+          } catch (e) {
+            this.$message.error('手机号或验证码错误')
+          }
         }
       })
     }
