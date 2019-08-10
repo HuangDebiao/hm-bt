@@ -1,6 +1,6 @@
 import axios from 'axios'
 import store from '@/store'
-// import { promised } from 'q'
+import JSONBIG from 'json-bigint'
 
 // axios.defaults.baseURL = 'http://ttapi.research.itcast.cn/mp/v1_0/'
 
@@ -8,10 +8,14 @@ import store from '@/store'
 //   Authorization: `Bearer ${store.getUser().token}`
 // }
 axios.defaults.baseURL = 'http://ttapi.research.itcast.cn/mp/v1_0/'
-// // 请求头字段
-// axios.defaults.headers = {
-//   Authorization: `Bearer ${store.getUser().token}`
-// }
+
+axios.defaults.transformResponse = [(data) => {
+  try {
+    return JSONBIG.parse(data)
+  } catch (e) {
+    return data
+  }
+}]
 axios.interceptors.request.use(config => {
   config.headers.Authorization = `Bearer ${store.getUser().token}`
   return config
