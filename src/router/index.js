@@ -23,7 +23,12 @@ const router = new VueRouter({
         { path: '/', component: Welcome },
         { path: '/article', component: Content },
         { path: '/image', component: Image },
-        { path: '/publish', component: pushlist },
+        { path: '/publish/:id', component: pushlist },
+        {
+          path: '/publish',
+          name: 'publis',
+          component: pushlist
+        },
         { path: '/fans', component: Comment },
         { path: '/comment', component: Fans },
         { path: '/setting', component: Setting }

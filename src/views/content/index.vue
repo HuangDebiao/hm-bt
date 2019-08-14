@@ -81,7 +81,6 @@
 </template>
 
 <script>
-// import { async } from 'q'
 
 export default {
   // components: { MyBard },
@@ -95,27 +94,18 @@ export default {
         page: 1,
         per_page: 20
       },
-      // channelOptions: [],
       dataArr: [],
       tableData: [],
       total: 0
     }
   },
-  // watch: {
-  // //   total (newVal, oldVal) {  }
-  //   'reqParams.channel_id': function (newVal, oldVal) {
-  //     if (newVal === '') {
-  //       this.reqParams.channel_id = null
-  //     }
-  //   }
-  // },
+
   created () {
-  //   this.getChannelOptions()
     this.getArticles()
   },
   methods: {
     edit (id) {
-      this.$router.push('/publish/?id' + id)
+      this.$router.push('/publish/?id=' + id)
     },
     del (id) {
       this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
@@ -147,10 +137,6 @@ export default {
       this.reqParams.page = newPage
       this.getArticles()
     },
-    // async getChannelOptions () {
-    //   const { data: { data } } = await this.$http.get('channels')
-    //   this.channelOptions = data.channels
-    // },
     async  getArticles () {
       const { data: { data } } = await this.$http.get('articles', { params: this.reqParams })
       this.tableData = data.results
